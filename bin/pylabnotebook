@@ -1,2 +1,2 @@
 #!/bin/bash
-ipython notebook --pylab
+ipython notebook --pylab inline
