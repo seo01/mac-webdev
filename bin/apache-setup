@@ -1,7 +1,8 @@
 #!/bin/bash
 
+#THIS IS NO LONGER NEEDED AS THE APACHE CONF DOES NOT NEED TO BE EDITED
 #save the current Apache config
-sudo cp /etc/apache2/httpd.conf /etc/apache2/original/httpd.conf.backup.`date "+%Y-%m-%d"`
+#sudo cp /etc/apache2/httpd.conf /etc/apache2/original/httpd.conf.backup.`date "+%Y-%m-%d"`
 
 #Enable vhosts
 sudo cp /etc/apache2/extra/httpd-vhosts.conf /etc/apache2/other/
