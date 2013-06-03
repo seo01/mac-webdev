@@ -1,0 +1,52 @@
+#!/bin/bash
+
+#Create a vhost
+
+#TODO: add help
+#vhost [create|delete] [domain] [directory] [?create database]
+
+#Create the vhost file:
+VHOSTCONF=/etc/apache2/other/$1.conf
+sudo touch $VHOSTCONF
+sudo chmod 777 $VHOSTCONF
+
+echo "<VirtualHost *:80>" >> $VHOSTCONF
+echo "   DocumentRoot $2" >> $VHOSTCONF
+echo "   ServerName $1" >> $VHOSTCONF
+echo "   ServerAlias www.$1" >> $VHOSTCONF
+echo "</VirtualHost>" >> $VHOSTCONF
+
+echo "<Directory \"$2\">" >> $VHOSTCONF
+echo "  Options Indexes FollowSymLinks MultiViews" >> $VHOSTCONF
+echo "	AllowOverride All" >> $VHOSTCONF
+echo "	Order allow,deny" >> $VHOSTCONF
+echo "	Allow from all" >> $VHOSTCONF
+echo "</Directory>" >> $VHOSTCONF
+
+#Add the relevant line to the hosts file
+sudo sh -c "echo 127.0.0.1 $1 >> /etc/hosts"
+#chmod 755 every folder up to one being served
+#current dir
+CUR_DIR=`pwd`
+WORKING_DIR=`dirname $2`
+cd $WORKING_DIR
+do
+	chmod +x $WORKING_DIR
+	cd ..
+	WORKING_DIR=`pwd`
+while [ $WORKING_DIR -neq '/' ];
+cd $CUR_DIR
+
+#Restart Apache
+sudo apachectl restart
+open http://$x
+
+#TODO:
+#TODO: optionally create a DB as well
+#if $3 != ''
+#echo "create database $3" | mysql -u root
+
+#TODO:
+#DELETE
+#To remove the vhost delete the conf file and remove the host file line and optionally delete the database
+
