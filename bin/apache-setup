@@ -1,0 +1,13 @@
+#!/bin/bash
+
+#save the current Apache config
+sudo cp /etc/apache2/httpd.conf /etc/apache2/original/httpd.conf.backup.`date "+%Y-%m-%d"`
+
+#Enable vhosts
+sudo cp /etc/apache2/extra/httpd-vhosts.conf /etc/apache2/other/
+#Enable PHP5
+sudo sh -c 'echo "LoadModule php5_module libexec/apache2/libphp5.so" > /etc/apache2/other/enable_php5.conf'
+
+#Fix the mysql socket
+sudo mkdir /var/mysql
+sudo ln -s /tmp/mysql.sock /var/mysql/mysql.sock
