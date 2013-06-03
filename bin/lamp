@@ -1,0 +1,10 @@
+#!/bin/bash
+
+#start mysql
+#start
+mysqld &
+sudo apachectl start
+
+#stop
+sudo apachectl stop
+mysqladmin -u root -p shutdown
