@@ -47,17 +47,17 @@ elif [ "xcreate" = "x$1" ]
 	echo "Restarting Apache"
 	#Restart Apache
 	sudo apachectl restart
+	sleep 5
 	PAGE="http://$2"
 	echo "Opening $PAGE"
 	open $PAGE
 
-	#TODO:
-	#TODO: optionally create a DB as well
+	#TODO: test optionally create a DB
 	if [ "x$4" != "x" ]
 		then
-		echo "Creating database $3"
-		echo "create database $3" | mysql -u root
-	done
+		echo "Creating database $4"
+		echo "create database $4" | mysql -u root
+	fi
 elif [ "xdelete" = "x$1" ]
 	then
 	echo "Delete vhost"
